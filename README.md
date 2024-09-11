@@ -132,7 +132,7 @@ To install **Linux Looker**, follow these steps. You can either clone from GitHu
 
 2. **Unzip the File**  
    Unzip the downloaded file and navigate to the project directory:  
-   `unzip network_monitor_project.zip`  
+   `unzip linux_looker.zip`  
    `cd network_monitor_project`
 
 
