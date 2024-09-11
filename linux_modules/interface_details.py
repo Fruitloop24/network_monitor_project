@@ -2,8 +2,9 @@ import psutil
 import subprocess
 import socket
 from colorama import Fore, Style, init
+import os
 
-# Initialize colorama
+# Initialize colorama for colored output
 init(autoreset=True)
 
 def get_interface_details():
@@ -102,23 +103,23 @@ def get_all_interface_info():
 
     return full_info
 
-if __name__ == "__main__":
+def run_interface_tool_from_menu(sudo_password=None):
+    """Function to be called from the main menu to run the interface tool."""
     try:
         interface_info = get_all_interface_info()
         print(interface_info)
 
-        # Save to a text file (without color formatting)
+        # Save the result to a text file on the desktop
         plain_text_info = interface_info.replace(Fore.CYAN, "").replace(Fore.GREEN, "").replace(Fore.YELLOW, "").replace(Style.RESET_ALL, "")
-        with open("interface_details.txt", "w") as file:
+        output_path = os.path.join(os.path.expanduser("~/Desktop"), "interface_details.txt")
+        with open(output_path, "w") as file:
             file.write(plain_text_info)
-        print("Summary saved to interface_details.txt")
+        print(f"{Fore.BLUE}Summary saved to {output_path}{Style.RESET_ALL}")
 
     except Exception as e:
-        print(f"Error: {str(e)}")
+        print(f"{Fore.RED}Error: {str(e)}{Style.RESET_ALL}")
 
-
-
-
-
-
+# If you want to run this tool independently:
+if __name__ == "__main__":
+    run_interface_tool_from_menu()
 

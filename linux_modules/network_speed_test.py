@@ -3,11 +3,12 @@ import speedtest
 import socket
 import requests
 from colorama import Fore, Style, init
+from pathlib import Path
 
 # Initialize colorama
 init(autoreset=True)
 
-def run_speed_test():
+def run_speed_test(sudo_password=None):
     """Runs a network speed test and returns the results."""
     st = speedtest.Speedtest()
     st.get_best_server()
@@ -21,31 +22,61 @@ def run_speed_test():
     print(f"Download Speed: [{Fore.GREEN}{'█' * int(download_speed / 10)}{'░' * (20 - int(download_speed / 10))}{Style.RESET_ALL}] {download_speed:.2f} Mbps")
     print(f"Upload Speed: [{Fore.GREEN}{'█' * int(upload_speed / 10)}{'░' * (20 - int(upload_speed / 10))}{Style.RESET_ALL}] {upload_speed:.2f} Mbps")
 
-    # Public IP and Location
-    ip_info = requests.get("https://ipinfo.io").json()
-    public_ip = ip_info.get("ip")
-    location = f"{ip_info.get('city', '')}, {ip_info.get('region', '')}, {ip_info.get('country', '')}"
-
+    # Fetch Public IP and Location
+    public_ip, location = get_public_ip_and_location()
     print(f"\nPublic IP: {public_ip}")
     print(f"Location: {location}")
 
     # Private IP
+    private_ip = get_private_ip()
+    print(f"Private IP: {private_ip}")
+
+    # Ping Test (if sudo_password is provided, use sudo, else run normally)
+    ping_result = run_ping_test(sudo_password)
+
+    # Save the plain text output to a file on the desktop
+    save_plain_text_output(server_info, download_speed, upload_speed, public_ip, location, private_ip, ping_result)
+
+def get_public_ip_and_location():
+    """Fetches the user's public IP and location information."""
     try:
-        private_ip = socket.gethostbyname(socket.gethostname())
-        if private_ip.startswith("127."):
-            raise ValueError("No valid private IP found.")
-        print(f"Private IP: {private_ip}")
+        ip_info = requests.get("https://api.ipify.org?format=json").json()
+        public_ip = ip_info.get("ip")
+        
+        # Fetch location based on public IP (optional, can be turned off for privacy)
+        location_info = requests.get(f"https://ipinfo.io/{public_ip}/json").json()
+        location = f"{location_info.get('city', '')}, {location_info.get('region', '')}, {location_info.get('country', '')}"
     except Exception as e:
-        print(f"{Fore.RED}Private IP: Failed to retrieve private IP. Error: {e}{Style.RESET_ALL}")
+        public_ip, location = "Unknown", "Unknown"
+        print(f"{Fore.RED}Failed to fetch public IP and location: {e}{Style.RESET_ALL}")
+    
+    return public_ip, location
 
-    # Ping Test
-    ping_result = subprocess.run(["ping", "-c", "4", "google.com"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    latency = extract_latency(ping_result.stdout.decode())
-    print(f"\nPing Test:")
-    print(f"Latency: {latency} ms")
+def get_private_ip():
+    """Retrieves the private IP from the main interface."""
+    try:
+        private_ip = subprocess.check_output(["hostname", "-I"]).decode().strip().split()[0]
+        if private_ip:
+            return private_ip
+        else:
+            raise ValueError("No private IP found.")
+    except Exception as e:
+        return f"{Fore.RED}Failed to retrieve private IP: {e}{Style.RESET_ALL}"
 
-    # Save the plain text output to a file
-    save_plain_text_output(server_info, download_speed, upload_speed, public_ip, location, private_ip, latency)
+def run_ping_test(sudo_password):
+    """Performs a ping test, checks for sudo requirements."""
+    try:
+        if sudo_password:
+            ping_result = subprocess.run(f"echo {sudo_password} | sudo -S ping -c 4 google.com", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        else:
+            ping_result = subprocess.run(["ping", "-c", "4", "google.com"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        
+        latency = extract_latency(ping_result.stdout.decode())
+        print(f"\nPing Test:")
+        print(f"Latency: {latency} ms")
+        return latency
+    except Exception as e:
+        return f"{Fore.RED}Error: Sudo privileges required for ping test or permission denied{Style.RESET_ALL}"
 
 def extract_latency(ping_output):
     """Extracts the latency from the ping command output."""
@@ -57,17 +88,26 @@ def extract_latency(ping_output):
     return "Unknown"
 
 def save_plain_text_output(server_info, download_speed, upload_speed, public_ip, location, private_ip, latency):
-    """Saves the plain text output to a file."""
-    with open("network_speed_test_results.txt", "w") as f:
+    """Saves the plain text output to a file on the desktop."""
+    desktop_path = Path.home() / "Desktop" / "network_speed_test_results.txt"
+    with desktop_path.open("w") as f:
         f.write("Network Speed Test:\n")
         f.write(f"Server: {server_info['host']} ({server_info['name']}, {server_info['country']})\n")
         f.write(f"Download Speed: {download_speed:.2f} Mbps\n")
         f.write(f"Upload Speed: {upload_speed:.2f} Mbps\n\n")
         f.write(f"Public IP: {public_ip}\n")
         f.write(f"Location: {location}\n")
-        f.write(f"Private IP: {private_ip if private_ip else 'Failed to retrieve private IP.'}\n\n")
+        f.write(f"Private IP: {private_ip}\n\n")
         f.write("Ping Test:\n")
         f.write(f"Latency: {latency} ms\n")
+    print(f"Summary saved to {desktop_path}")
+
+# Function to call from the menu
+def run_network_test_from_menu(sudo_password=None):
+    """Wrapper to call the speed test from the menu."""
+    run_speed_test(sudo_password)
 
 if __name__ == "__main__":
     run_speed_test()
+
+

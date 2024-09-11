@@ -2,6 +2,7 @@ import subprocess
 from colorama import Fore, Style, init
 import re
 from datetime import datetime
+import os
 
 # Initialize colorama
 init(autoreset=True)
@@ -27,23 +28,33 @@ def strip_color_codes(text):
     color_code_pattern = re.compile(r'\x1b\[[0-9;]*m')
     return color_code_pattern.sub('', text)
 
-def get_firewall_status():
+def get_firewall_status(sudo_password=None):
     """
     Retrieves the firewall status using 'ufw status verbose'.
+    Requires sudo privileges to get accurate status.
     """
-    return run_command("sudo ufw status verbose")
+    if sudo_password:
+        return run_command(f"echo {sudo_password} | sudo -S ufw status verbose")
+    else:
+        return f"{Fore.RED}Firewall status requires sudo privileges to check if active. Please run with sudo.{Style.RESET_ALL}"
 
-def get_open_ports():
+def get_open_ports(sudo_password=None):
     """
     Retrieves the list of open ports using 'lsof'.
     """
-    return run_command("sudo lsof -i -P -n | grep LISTEN")
+    if sudo_password:
+        return run_command(f"echo {sudo_password} | sudo -S lsof -i -P -n | grep LISTEN")
+    else:
+        return run_command("lsof -i -P -n | grep LISTEN")
 
-def get_firewall_rules():
+def get_firewall_rules(sudo_password=None):
     """
     Retrieves the numbered list of firewall rules using 'ufw status numbered'.
     """
-    return run_command("sudo ufw status numbered")
+    if sudo_password:
+        return run_command(f"echo {sudo_password} | sudo -S ufw status numbered")
+    else:
+        return f"{Fore.RED}Error: sudo required to view firewall rules.{Style.RESET_ALL}"
 
 def count_firewall_rules(status):
     """
@@ -53,50 +64,105 @@ def count_firewall_rules(status):
     deny_count = len(re.findall(r'DENY', status))
     return allow_count, deny_count
 
+def format_open_ports(open_ports):
+    """
+    Formats the open ports output to separate port numbers and services.
+    """
+    if not open_ports:
+        return f"{Fore.RED}No open ports found.{Style.RESET_ALL}"
+
+    formatted_ports = ""
+    for line in open_ports.splitlines():
+        parts = re.split(r'\s+', line)
+        if len(parts) >= 9:
+            service = parts[0]
+            port = parts[8]
+            protocol = parts[4]
+            formatted_ports += f"  Service: {Fore.GREEN}{service}{Style.RESET_ALL}, Port: {Fore.CYAN}{port}{Style.RESET_ALL}, Protocol: {protocol}\n"
+    
+    return formatted_ports
+
+def format_firewall_status(status):
+    """
+    Formats the firewall status output, keeping only the essentials.
+    """
+    # Extract relevant details from the firewall status
+    relevant_lines = []
+    for line in status.splitlines():
+        if "Status:" in line or "Default:" in line or "Logging:" in line or "New profiles:" in line:
+            relevant_lines.append(line)
+    
+    return "\n".join(relevant_lines)
+
 def format_summary(status, open_ports, rules):
     """
     Formats the firewall summary including status, open ports, and rules.
     """
-    allow_count, deny_count = count_firewall_rules(status)
+    allow_count, deny_count = count_firewall_rules(rules)
     total_rules = allow_count + deny_count
+    
+    # Format the firewall status to only show relevant information
+    formatted_status = format_firewall_status(status)
+    
+    # Header and section split with primary colors
     summary = (
-        f"{Fore.GREEN}Firewall Status: {Fore.YELLOW}{'Active' if 'active' in status.lower() else 'Inactive'}{Style.RESET_ALL}, "
-        f"{total_rules} Rules ({Fore.GREEN}{allow_count} Allow{Style.RESET_ALL}, {Fore.RED}{deny_count} Deny{Style.RESET_ALL})\n\n"
-        f"{Fore.GREEN}Firewall Status:{Style.RESET_ALL}\n{Fore.CYAN}{status}{Style.RESET_ALL}\n\n"
-        f"{Fore.GREEN}Open Ports:{Style.RESET_ALL}\n{Fore.CYAN}{open_ports}{Style.RESET_ALL}\n\n"
-        f"{Fore.GREEN}Firewall Rules (Numbered):{Style.RESET_ALL}\n{Fore.CYAN}{rules}{Style.RESET_ALL}\n\n"
+        f"{Fore.CYAN}===== FIREWALL SUMMARY ====={Style.RESET_ALL}\n\n"
+        f"{Fore.CYAN}{Style.BRIGHT}1. Firewall Status:{Style.RESET_ALL}\n"
+        f"{formatted_status}\n\n"
+        
+        f"{Fore.CYAN}{Style.BRIGHT}2. Open Ports and Services:{Style.RESET_ALL}\n"
+        f"{format_open_ports(open_ports)}\n\n"
+        
+        f"{Fore.CYAN}{Style.BRIGHT}3. Firewall Rules (Numbered):{Style.RESET_ALL}\n"
+        f"  {Fore.GREEN}{allow_count} Allow, {Fore.RED}{deny_count} Deny (Total: {total_rules}){Style.RESET_ALL}\n"
+        f"{Fore.GREEN}Rules:\n{rules}{Style.RESET_ALL}\n"
     )
     return summary
 
 def save_to_file(content, filename="firewall_summary.txt", append_timestamp=False):
     """
-    Saves the given content to a text file, stripping out color codes.
+    Saves the given content to a text file on the Desktop, stripping out color codes.
     If append_timestamp is True, appends a timestamp to the filename.
     """
+    # Strip color codes for plain content
     plain_content = strip_color_codes(content)
+    
+    # Append a timestamp to the filename if requested
     if append_timestamp:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"firewall_summary_{timestamp}.txt"
+    
+    # Save the file to the user's Desktop
+    desktop_path = os.path.join(os.path.expanduser("~/Desktop"), filename)
     try:
-        with open(filename, "w") as file:
+        with open(desktop_path, "w") as file:
             file.write(plain_content)
-        print(f"{Fore.BLUE}Summary saved to {filename}{Style.RESET_ALL}")
+        print(f"{Fore.BLUE}Summary saved to {desktop_path}{Style.RESET_ALL}")
     except Exception as e:
-        print(f"{Fore.RED}Error saving to file '{filename}': {str(e)}{Style.RESET_ALL}")
+        print(f"{Fore.RED}Error saving to file '{desktop_path}': {str(e)}{Style.RESET_ALL}")
 
-def main():
+def run_firewall_tool_from_menu(sudo_password=None):
+    """
+    Runs the firewall tool from the menu, handling both privileged and non-privileged modes.
+    """
     try:
-        status = get_firewall_status()
-        open_ports = get_open_ports()
-        rules = get_firewall_rules()
+        status = get_firewall_status(sudo_password)
+        open_ports = get_open_ports(sudo_password)
+        rules = get_firewall_rules(sudo_password)
+        
+        # Format and display the firewall summary
         firewall_summary = format_summary(status, open_ports, rules)
-        save_to_file(firewall_summary, append_timestamp=False)  # Set to True to save multiple reports with timestamps
         print(firewall_summary)
+        
+        # Save the summary to a file on the desktop
+        save_to_file(firewall_summary, append_timestamp=False)  # Set to True to save multiple reports with timestamps
     except Exception as e:
         print(f"{Fore.RED}Error: {str(e)}{Style.RESET_ALL}")
 
 if __name__ == "__main__":
-    main()
+    run_firewall_tool_from_menu(sudo_password=None)
+
+
 
 
 
