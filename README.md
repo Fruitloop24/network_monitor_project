@@ -27,69 +27,29 @@ Imagine having all the most critical system health data—network information, f
 
 ### **Key Features**
 
-#### 1. DNS Information 🌐
-- **What It Does**: Performs a detailed DNS lookup, providing information about A, AAAA, MX, TXT, PTR, and SOA records. It also checks DNSSEC status and provides query times and TTL values.
-- **Use Cases**:
-  - **Spot DNS Misconfigurations**: Verify if a website's DNS records are correctly set up (A, MX, TXT, and SPF records). Avoid email delivery issues or domain validation problems by quickly identifying misconfigurations.
-  - **Troubleshoot Slow Domain Resolution**: Use query time metrics and DNS server info to spot slow DNS resolution, helping troubleshoot websites that take too long to load.
-  - **Confirm Security Settings**: Ensure DNSSEC is enabled for domain protection, and check SPF records to avoid email spoofing.
-  - **Advanced Use**: Reverse DNS lookups (PTR) can be used for network troubleshooting to confirm correct IP-to-hostname mappings in enterprise environments.
+1. **DNS Information 🌐**  
+   Provides detailed information on DNS records, including A, AAAA, MX, TXT, PTR, and SOA records, along with DNSSEC status and TTL values.
 
-#### 2. Memory and Disk Usage 💾
-- **What It Does**: Displays system RAM, swap usage, and disk space statistics. It also identifies the top three memory-hungry processes and checks for potential memory leaks or high swap usage.
-- **Use Cases**:
-  - **Optimize System Performance**: Easily pinpoint memory bottlenecks or excessive swap usage that might be slowing down the system. Memory-intensive processes can be identified and managed.
-  - **Spot Memory Leaks**: For users suspecting memory leaks, this tool helps reveal processes that continually eat away at system memory.
-  - **Ensure Storage Health**: Get a quick view of available disk space and usage. Prevent system slowdowns by acting before critical partitions run out of space.
-  - **Advanced Use**: Integrate with alert systems to notify users if memory or disk usage crosses predefined thresholds (e.g., RAM above 85%, swap above 50%).
+2. **Memory and Disk Usage 💾**  
+   Displays RAM and swap usage, disk space stats, and lists the top three memory-consuming processes.
 
-#### 3. Firewall Information 🔥
-- **What It Does**: Shows the current firewall status, open ports, allowed/denied rules, and services listening on those ports. It also provides detailed logging of blocked attempts.
-- **Use Cases**:
-  - **Ensure Proper Firewall Configuration**: Check that critical ports (SSH, HTTP, etc.) are open, while others are properly locked down. Useful for auditing security configurations.
-  - **Troubleshoot Connectivity Issues**: Easily identify if a service is failing because the firewall is blocking it. For example, if an application can't connect to the internet, this tool will reveal whether a port block is the cause.
-  - **Block Unauthorized Access**: View all denied traffic and determine if there are any suspicious attempts to access the system.
-  - **Advanced Use**: Regular firewall audits to ensure all ports are secured, especially after installing new applications.
+3. **Firewall Information 🔥**  
+   Shows firewall status, open ports, and configured firewall rules.
 
-#### 4. Interface Information 🖧
-- **What It Does**: Shows the status of all network interfaces, including IP addresses, subnet masks, VLAN configurations, duplex settings, and error statistics (e.g., dropped packets).
-- **Use Cases**:
-  - **Diagnose Interface Errors**: Interface status, error stats, and dropped packets help quickly identify issues with network hardware or misconfigured interfaces.
-  - **Track IP Changes**: Ensure your network interfaces are receiving the correct IP address, which is essential when troubleshooting connectivity issues.
-  - **Verify VLANs**: For advanced network setups, this tool checks VLAN configurations to ensure proper network segmentation and isolation.
-  - **Advanced Use**: Useful in virtualized environments or networks with multiple interfaces to track the health of each interface, including virtual ones.
+4. **Interface Information 🖧**  
+   Displays network interface status, including IP addresses, subnet masks, and error statistics.
 
-#### 5. Routing Table and Traceroute 🗺
-- **What It Does**: Provides a detailed routing table and performs a traceroute to a public DNS server (e.g., 8.8.8.8). This shows the path packets take to reach their destination and the routers they pass through.
-- **Use Cases**:
-  - **Troubleshoot Connectivity**: Easily identify misconfigured routes that could be preventing access to certain networks or services. Useful for diagnosing unreachable servers or websites.
-  - **Check Network Latency**: Traceroute reveals which hop is causing delays in network performance. This is critical for diagnosing high-latency issues in enterprise networks or cloud environments.
-  - **Route Verification**: Verify the network paths that packets take and ensure they are optimized or secured as per the desired network configuration.
-  - **Advanced Use**: Use routing table details to optimize network routing for complex enterprise setups or multi-homed servers.
+5. **Routing Table and Traceroute 🗺**  
+   Shows the system's routing table and performs a traceroute to identify network paths.
 
-#### 6. Net Speed Test, IP, Ping ⚡
-- **What It Does**: Performs an internet speed test (upload/download speeds), displays public/private IP addresses, and measures network latency using the ping command.
-- **Use Cases**:
-  - **Identify Slow Internet Issues**: Quickly determine if slow internet is caused by poor download or upload speeds. Useful for diagnosing VPN or ISP throttling issues.
-  - **Confirm IP Address Configuration**: Verify if your device is using the correct public/private IP address, especially when troubleshooting VPNs or cloud environments.
-  - **Check Network Latency**: Use ping latency results to assess network performance and pinpoint delays.
-  - **Advanced Use**: Useful in diagnosing issues with VPNs and IP misconfigurations, especially when testing from multiple network locations.
+6. **Net Speed Test, IP, Ping ⚡**  
+   Checks download/upload speeds, public/private IP addresses, and measures network latency using ping.
 
-#### 7. System Logs (Last 10) 📜
-- **What It Does**: Pulls the last 10 logs from system services such as kernel, authentication, and firewall logs. This tool helps quickly spot recent errors or login attempts.
-- **Use Cases**:
-  - **Spot Unauthorized Access**: Review authentication logs to detect any suspicious login attempts (e.g., failed SSH logins).
-  - **Monitor System Stability**: Quickly identify if any kernel-level errors (e.g., hardware failures, driver issues) are affecting the system's stability.
-  - **Track Recent Changes**: Verify firewall logs to ensure no suspicious connections have been blocked or allowed.
-  - **Advanced Use**: Add support for specifying log ranges or alert systems for repeated failed login attempts.
+7. **System Logs (Last 10) 📜**  
+   Pulls the last 10 logs from key services like authentication, firewall, and kernel logs.
 
-#### 8. System Info & ARP 🖥️
-- **What It Does**: Displays detailed system information (CPU, RAM, uptime, architecture) and provides a full ARP table showing MAC-to-IP mappings for devices on the local network.
-- **Use Cases**:
-  - **Verify System Health**: Get an instant overview of CPU, memory, disk space, and uptime to ensure the system is running smoothly.
-  - **Track Connected Devices**: ARP table helps track all devices on the network, which is useful for identifying unauthorized or unexpected devices.
-  - **Ensure Proper Networking**: Quickly verify if the system's networking is functioning correctly by checking its IP configuration and ARP table for issues like duplicate IPs or misconfigurations.
-  - **Advanced Use**: Regularly review ARP tables in environments prone to ARP spoofing or man-in-the-middle attacks to spot malicious behavior.
+8. **System Info & ARP 🖥️**  
+   Provides system information (CPU, RAM, uptime) and shows the ARP table with MAC-to-IP mappings.
 
 ---
 
