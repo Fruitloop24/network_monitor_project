@@ -5,12 +5,21 @@
 
 **Linux Looker** is a modular Python-based diagnostic tool that provides users with a fast, efficient, and color-coded way to inspect the health of their Linux systems. Designed with intermediate Linux users in mind, it eliminates the need to memorize complex CLI commands by bundling multiple system health checks into one tool.
 
-### **Key Selling Points**
+## **Key Selling Points**
 
-- **Simplicity**: No need to run separate commands or remember complex syntax.
-- **Quick Insights**: Tools are modular and can be run individually or all at once for a comprehensive report.
-- **Color-Coded Output**: Results are presented in a visually appealing, easy-to-read format.
-- **Immediate Reports**: All output is saved as neatly formatted text files on your desktop, allowing you to refer back to it without re-running commands.
+- **Simplicity**: No need to run separate commands or remember complex syntax. With an intuitive menu system, users can easily navigate and execute the tools.
+
+- **Quick Insights**: The tool is modular, allowing you to run individual scans or all tools at once for a comprehensive system report. This flexibility makes it ideal for both targeted diagnostics and full system checks.
+
+- **Credentialed and Non-Credentialed Scans**: Our tool supports both credentialed (sudo-required) and non-credentialed scans. The credentialed scans request a sudo password for that specific run and never store or save any sensitive information. For each new scan that requires elevated privileges, the password must be entered again, ensuring maximum privacy and security.
+
+- **Security & Privacy**: We are privacy-conscious and take security seriously. The sudo password is only used during the run of the tool for necessary scans and is discarded immediately after. No data or passwords are stored in the system or saved between sessions.
+
+- **Color-Coded Output**: To enhance readability, the results are presented in a clear, color-coded format. Important sections, system information, and warnings are easy to identify at a glance.
+
+- **Immediate Reports**: All output is automatically saved as neatly formatted text files on your desktop. This allows you to review past results without needing to re-run any commands, providing both convenience and efficiency.
+
+- **Small Footprint**: The tool is lightweight, with a total size of only **29.8 MB**, ensuring it won't take up unnecessary space on your system.
 
 Imagine having all the most critical system health data—network information, firewall status, system memory, logs—available in one place and color-coded for easy readability. Whether you’re troubleshooting an isolated issue like a slow internet connection or scanning your whole system for performance bottlenecks, **Linux Looker** saves time by providing the information in one go.
 
@@ -152,7 +161,7 @@ Ensure the output matches:
 
 ## How to Use
 
-Once you’ve installed **Linux Looker**, follow these steps to run it:
+Once you've installed **Linux Looker**, make sure you navigate to the `network_monitor_project` directory before running it. Follow these steps to get started:
 
 1. **Activate the Virtual Environment**  
    Before running the tool, activate the virtual environment:  
