@@ -58,19 +58,6 @@ Imagine having all the most critical system health data—network information, f
 - You can run individual tools by selecting them from the menu, or you can run all tools at once for a full system diagnostic.
 - The output is neatly organized into text files saved to your desktop for easy reference.
 
-### **Advanced Use Cases:**
-
-- **DNS and Network Troubleshooting:**
-  - **Tools**: DNS Information, Routing Table, Net Speed Test.
-  - **Scenario**: You're having trouble accessing certain websites or services. Start with DNS Information to verify the DNS records, use Routing Table to check if the network paths are correct, and finally run the Net Speed Test to rule out speed or latency issues.
-
-- **Security Audit:**
-  - **Tools**: Firewall Information, System Logs, ARP Table.
-  - **Scenario**: You're auditing your system for unauthorized access or suspicious activity. Begin with Firewall Information to ensure the firewall is correctly configured, then check System Logs for recent login attempts, and finally inspect the ARP Table for unauthorized devices on the network.
-
-- **Performance Bottleneck:**
-  - **Tools**: Memory and Disk Usage, Interface Information, Net Speed Test.
-  - **Scenario**: Your system feels slow, and you're unsure if it's memory-related, disk, or network. Check Memory and Disk Usage to spot any memory hogs, use Interface Information to verify there are no interface errors, and then run Net Speed Test to see if network bandwidth is the issue.
 ## Installation
 
 To install **Linux Looker**, follow these steps. You can either clone from GitHub or download the zip file.
