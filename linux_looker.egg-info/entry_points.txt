@@ -1,2 +1,0 @@
-[console_scripts]
-linux_looker = linux_monitor:main
