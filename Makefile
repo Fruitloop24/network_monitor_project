@@ -1,7 +1,7 @@
 .PHONY: build-snap
 build-snap:
-	snapcraft
+	cd network_monitor_project && snapcraft
 
 .PHONY: clean
 clean:
-	snapcraft clean
+	cd network_monitor_project && snapcraft clean
