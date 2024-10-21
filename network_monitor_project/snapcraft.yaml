@@ -1,0 +1,20 @@
+name: linux-looker
+version: '1.0'
+summary: A tool for monitoring and hardening Linux systems.
+description: |
+  This Snap package provides a comprehensive toolset for monitoring and hardening Linux systems.
+  It includes various modules for DNS information, firewall status, interface details, memory status,
+  network speed tests, routing tables, and system information.
+base: core22
+confinement: strict
+
+parts:
+  network-monitor:
+    plugin: python
+    source: .
+    python-packages:
+      - -r requirements.txt
+
+apps:
+  network-monitor:
+    command: python3 -m linux_monitor
