@@ -17,11 +17,9 @@ downloads/
 .scoverage/
 
 # Virtual environments
-.venv/
-env/
-ENV/
-venv/
+
 
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
+.aider*

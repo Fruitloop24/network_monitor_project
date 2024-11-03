@@ -1,0 +1,45 @@
+name: linux-looker
+version: '1.0'
+summary: A tool for monitoring and hardening Linux systems.
+description: |
+  Linux Looker is a tool that helps to assess and improve the security of Linux endpoints.
+confinement: classic  # Allows full system access needed for sudo-level commands.
+base: core22
+grade: stable
+architectures:
+  - amd64
+
+parts:
+  linux-looker:
+    plugin: python  # Simplifies the installation of Python dependencies.
+    source: .
+    python-packages:
+      - colorama  # Include any other Python packages used.
+    stage-packages:
+      - iputils-ping
+      - net-tools
+      - curl
+      - procps  # For tools like 'ps'.
+      - dnsutils  # For DNS-related tools.
+      - iproute2  # For 'ip' command utilities.
+    override-build: |
+      snapcraftctl build
+      # Create the virtual environment
+      python3 -m venv venv
+      # Upgrade pip and install dependencies
+      venv/bin/pip install --upgrade pip
+      venv/bin/pip install -r requirements.txt
+      # Ensure Python executable is properly set
+      chmod -R 755 venv
+      cp -r venv $SNAPCRAFT_PART_INSTALL/
+      cp linux_monitor.py $SNAPCRAFT_PART_INSTALL/bin/
+
+apps:
+  linux-looker:
+    command: venv/bin/python3 $SNAP/bin/linux_monitor.py
+    plugs:
+      - network
+      - network-bind
+      - system-observe
+      - hardware-observe
+      - home
