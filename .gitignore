@@ -3,8 +3,9 @@ __pycache__/
 *.py[cod]
 
 # Virtual environments
-.venv/
+myenv/
 .env/
+.venv
 
 # PyInstaller output folders
 build/
@@ -19,3 +20,7 @@ dist/
 # Logs and temporary files
 pip-log.txt
 pip-delete-this-directory.txt
+
+# VS Code-specific files
+.vscode/
+*.code-workspace
