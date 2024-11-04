@@ -2,25 +2,20 @@
 __pycache__/
 *.py[cod]
 
-# C extensions
-*.so
+# Virtual environments
+.venv/
+.env/
 
-# Distribution / packaging
-.Python
+# PyInstaller output folders
 build/
 dist/
-develop-eggs/
-downloads/
-.eggs/
-*.egg-info/
-.libs/
-.scoverage/
 
-# Virtual environments
+# PyInstaller spec files (keep this if you don't need to track spec files)
+*.spec
 
+# Aider-related files
+.aider*
 
-# Installer logs
+# Logs and temporary files
 pip-log.txt
 pip-delete-this-directory.txt
-.aider*
-venv
