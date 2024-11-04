@@ -3,7 +3,8 @@
 all: build
 
 build:
-	pyinstaller --onefile --name=my_tool main.py
+	pyinstaller --onefile --name=linux_looker linux_monitor.py
 
 clean:
-	rm -rf build dist my_tool.spec
+	rm -rf build dist linux_looker.spec
+
