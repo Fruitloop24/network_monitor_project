@@ -6,7 +6,6 @@ from linux_modules.routing_table import run_routing_tool_from_menu
 from linux_modules.network_speed_test import run_network_test_from_menu
 from linux_modules.last_ten_logs import run_logs_tool_from_menu
 from linux_modules.system_info import get_system_info  # Import system info tool
-from linux_modules.hello import hello
 from colorama import Fore, Style, init
 
 # Initialize colorama for colored output
