@@ -1,3 +1,6 @@
+
+---
+
 # 🔍 **Linux Looker** 🔍  
 [Visit my e-portfolio](https://eportkc.com)
 
@@ -5,7 +8,7 @@
 
 ### Extended Overview
 
-**Linux Looker** is a modular, security-focused diagnostic tool for Linux systems that provides quick, detailed insights into system health. It includes eight diagnostic tools, covering DNS, memory, disk usage, firewall, network interfaces, routing, speed tests, logs, and system information. Users can run individual or multiple tools as needed, with results color-coded for readability and saved as text files on the desktop. **Linux Looker** prioritizes security by discarding the sudo password after eac...
+**Linux Looker** is a modular, security-focused diagnostic tool for Linux systems that provides quick, detailed insights into system health. It includes eight diagnostic tools, covering DNS, memory, disk usage, firewall, network interfaces, routing, speed tests, logs, and system information. Users can run individual or multiple tools as needed, with results color-coded for readability and saved as text files on the desktop. **Linux Looker** prioritizes security by discarding the sudo password after each run.
 
 ### Key Features
 - 🌐 **DNS Information**: Provides detailed information on DNS records, including A, AAAA, MX, TXT, PTR, and SOA records, along with DNSSEC status and TTL values.
@@ -67,6 +70,31 @@ For those who prefer a manual setup, here are additional installation options:
    pip install -r requirements.txt
    ```
 
+## Checksums
+
+To verify the integrity of the downloaded files, you can check their checksums.
+
+### MD5 Checksum:
+Run this command to verify the MD5 checksum:
+```bash
+md5sum linux_looker.zip
+```
+Ensure the output matches:
+```
+0e1ddf2ac854e0147e5f752462a0cd23  linux_looker.zip
+```
+
+### SHA-256 Checksum:
+Run this command to verify the SHA-256 checksum:
+```bash
+sha256sum linux_looker.zip
+```
+Ensure the output matches:
+```
+8d159f1f0d7c2bbde5544cdc446908059caaf752e20853ce37d2c39a4670d77a  linux_looker.zip
+```
+
+---
 
 ## How to Use
 
@@ -81,45 +109,6 @@ Once you've installed **Linux Looker**, navigate to the `network_monitor_project
 ---
 
 [Visit my e-portfolio](https://eportkc.com)
-MIT License
 
-Copyright (c) 2024 [Your Name]
+---
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-MIT License
-
-Copyright (c) 2024 Fruitloop24
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
