@@ -25,3 +25,7 @@ pip-delete-this-directory.txt
 .vscode/
 *.code-workspace
 .env
+
+# Adding to stop complications from updating and versioning until major updates are added
+.gitattributes
+/linux_looker_v1.2.1.zip

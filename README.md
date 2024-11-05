@@ -81,7 +81,7 @@ md5sum linux_looker.zip
 ```
 Ensure the output matches:
 ```
-388d70adaa60764cff1473e264cd2716  linux_looker.zip
+668783e3ebea38ede90c8623c69417ec  linux_looker.zip
 ```
 
 ### SHA-256 Checksum:
@@ -91,7 +91,7 @@ sha256sum linux_looker.zip
 ```
 Ensure the output matches:
 ```
-34f276240fbdb003205d5755d87bbcc84cd5047233461461beaae9b13fc0d736  linux_looker.zip
+451461e037edcc172c4e50d8e5f85977f9bc1f70fc653e217740743bba23a6ce  linux_looker.zip
 ```
 
 ---
