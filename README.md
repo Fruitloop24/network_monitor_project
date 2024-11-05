@@ -67,31 +67,6 @@ For those who prefer a manual setup, here are additional installation options:
    pip install -r requirements.txt
    ```
 
-## Checksums
-
-To verify the integrity of the downloaded files, you can check their checksums.
-
-### MD5 Checksum:
-Run this command to verify the MD5 checksum:
-```bash
-md5sum linux_looker.zip
-```
-Ensure the output matches:
-```
-0e1ddf2ac854e0147e5f752462a0cd23  linux_looker.zip
-```
-
-### SHA-256 Checksum:
-Run this command to verify the SHA-256 checksum:
-```bash
-sha256sum linux_looker.zip
-```
-Ensure the output matches:
-```
-8d159f1f0d7c2bbde5544cdc446908059caaf752e20853ce37d2c39a4670d77a  linux_looker.zip
-```
-
----
 
 ## How to Use
 
