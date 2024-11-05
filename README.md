@@ -70,32 +70,6 @@ For those who prefer a manual setup, here are additional installation options:
    pip install -r requirements.txt
    ```
 
-## Checksums
-
-To verify the integrity of the downloaded files, you can check their checksums.
-
-### MD5 Checksum:
-Run this command to verify the MD5 checksum:
-```bash
-md5sum linux_looker.zip
-```
-Ensure the output matches:
-```
-668783e3ebea38ede90c8623c69417ec  linux_looker.zip
-```
-
-### SHA-256 Checksum:
-Run this command to verify the SHA-256 checksum:
-```bash
-sha256sum linux_looker.zip
-```
-Ensure the output matches:
-```
-451461e037edcc172c4e50d8e5f85977f9bc1f70fc653e217740743bba23a6ce  linux_looker.zip
-```
-
----
-
 ## How to Use
 
 Once you've installed **Linux Looker**, navigate to the `network_monitor_project` directory and use `./dist/linux_looker` to start the application. Follow these steps to get started:
