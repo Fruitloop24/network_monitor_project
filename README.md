@@ -1,3 +1,4 @@
+Here's your updated `README.md` with the section about the `linux_looker.zip` file added below the standard installation directions:
 
 ---
 
@@ -51,6 +52,37 @@ To install **Linux Looker**, follow these steps. The primary installation method
    ./dist/linux_looker
    ```
 
+### Alternative Installation Method: Using `linux_looker.zip`
+For users who prefer downloading a standalone ZIP file, follow these instructions:
+
+1. **Download the `linux_looker.zip`**  
+   - Visit my [e-portfolio](https://eportkc.com) to download `linux_looker.zip`. Note: This ZIP file includes checksums for verification. The ZIP downloaded from GitHub (`network_monitor_project-master.zip`) does not include checksums.
+   - Direct download link: [Download linux_looker.zip](https://blogdb.blob.core.windows.net/zip/linux_looker.zip)
+
+2. **Extract the ZIP File**  
+   Use the following command to extract the ZIP file:
+   ```bash
+   unzip linux_looker.zip -d linux_looker
+   ```
+
+3. **Navigate to the Extracted Directory**  
+   Change into the extracted directory:
+   ```bash
+   cd linux_looker
+   ```
+
+4. **Run the Makefile**  
+   Execute the Makefile to set up the virtual environment and prepare the tool:
+   ```bash
+   make
+   ```
+
+5. **Run Linux Looker**  
+   Start Linux Looker using:
+   ```bash
+   ./dist/linux_looker
+   ```
+
 ### Alternative Installation Methods
 For those who prefer a manual setup, here are additional installation options:
 
@@ -84,5 +116,6 @@ Once you've installed **Linux Looker**, navigate to the `network_monitor_project
 
 [Visit my e-portfolio](https://eportkc.com)
 
----
+--- 
+
 
