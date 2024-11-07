@@ -1,5 +1,3 @@
-Here's your updated `README.md` with the section about the `linux_looker.zip` file added below the standard installation directions:
-
 ---
 
 # 🔍 **Linux Looker** 🔍  
